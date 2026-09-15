@@ -5,12 +5,18 @@
     приложение сохраняет
 """
 
-collection = [] #list
+collection = ['1','2'] #list
 
 task_number = 0
 
 is_start = True #flag
 
+def listcheck(task_collection, name):
+    if name in task_collection:
+        print('Такая задача уже есть')
+        exit()
+    else:
+        pass
 def show_collection(task_collection):
     print('=' * 30)
     for task_number, j in enumerate(collection):
@@ -36,27 +42,32 @@ while is_start:
                         task_number += 1
                         collection.append(f"{task_name} {task_number}")
                     case _:
+                        listcheck(collection,task_name)
                         collection.append(f"{task_name}")
-                show_collection(collection)
-
             case 3:
                 show_collection(collection)
-                edit_task = input('Какую задачу вы хотите редактировать (введите название задачи): ')
-                if edit_task in collection:
-                    task_pos = collection.index(edit_task)
-                    collection.pop(task_pos)
-                    new_task = input('Новое название задачи: ')
-                    collection.insert(task_pos, new_task)
+                select_edit = (input('введите номер задачи'))
+                if int(select_edit.isdigit()):
+                    if int(select_edit) > 0 and int(select_edit) <= len(collection):
+                        edit_name = input('новое имя задачи')
+                        collection[int(select_edit)] = edit_name
+                        print(f"задача '{int(select_edit)}' '{edit_name}' успешно отредактированна!")
+                    else:
+                        print('Задачи с таким номером нет в списке')
                 else:
-                    print('такой задачи нет')
-                show_collection(collection)
+                    print('!!!')
+
 
             case 4:
                 show_collection(collection)
-                delete_task = input('Какую задачу вы хотите удалить (введите название задачи): ')
-                if delete_task in collection:
-                    collection.remove(delete_task)
-                show_collection(collection)
+                delete_edit = input('введите номер задачи')
+                if int(delete_edit.isdigit()):
+                    if int(delete_edit) > 0 and int(delete_edit) <= len(collection):
+                        collection.pop(int(delete_edit))
+                    else:
+                        print('Задачи с таким номером нет в списке')
+                else:
+                    print('Введите номер задачи!!!')
             case _:
 
                 print('такого пункта нет!')
