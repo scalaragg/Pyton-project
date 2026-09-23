@@ -1,63 +1,111 @@
-"""## Версия 0.0.2
+"""Основной файл приложения
 
--[x] реализовать место хранения задач
--[x] сделать функцию - показать задачи
-- [x] сделать функцию - создать задачу
--[x] сделать функцию - редактировать задачу
-- [x] сделать функцию -  удалить задачу
+    версия 0.0.7
+
+    === Описание ===
+        Приложение может сохранять задачи, выдает список задач, и может удалять и редактировать задачи
 
 """
+from random import choice
+import processes
+import os
 
-collection = [] #list
+collection = ['task1', 'task2']  # list of tasks
+is_running = True
 
-task_number = 0
 
-is_start = True #flag
+def show_collection(task_collection):
+    print("=" * 45)
+    for i, j in enumerate(collection):
+        print(i + 1, j)
+    print("=" * 45)
 
-while is_start:
 
-    print("1 - показать задачи | 2 - добавить задачу | 3 - редактировать задачу | 4 - удалить задачу")
+def show_menu():
+    print("1 - Показать задачи \n"
+          "2 - Добавить задачу \n"
+          "3 - Редактировать задачи \n"
+          "4 - Удаление задачи \n"
+          "5 - Выход")
 
-    choice_user = input('Введите ваш выбор ( 1 | 2 | 3 | 4 )')
 
-    if choice_user == '1' or choice_user == '2' or choice_user == '3' or choice_user == '4':
-        match int(choice_user):
-            case 1:
+def check_confirm(select_task, task_list):
+    if select_task.isdigit():
+        if int(select_task) > 0 and int(select_task) <= len(task_list):
+            return True
+        else:
+            print(f"Задачи с номером {select_task} нет в списке!")
+            return False
+    else:
+        print(f"Введите именно номер задачи!")
+        return False
 
-                print(collection)
+def delete_tasks(task_collection):
+    delete_task = input("Введите номер задачи: ")
+    if check_confirm(delete_task, task_collection) == 1:
+        task_collection.pop(int(delete_task) - 1)
+        print(f"Задача {delete_task} удалена!")
+    else:
+        print("Неверный номер задачи!")
 
-            case 2:
-                task_name = input('Название задачи (или оставьте пустым): ')
-                match (task_name):
-                    case "":
-                        task_name: str = 'task'
-                        task_number += 1
-                        collection.append(f"{task_name} {task_number}")
-                    case _:
-                        collection.append(f"{task_name}")
-                print(collection)
 
-            case 3:
+def edit_task(task_collection):
+    edit_task = input("Введите номер задачи: ")
+    if check_confirm(edit_task, task_collection) == 1:
+        task_collection[int(edit_task) - 1] = input("Новое имя задачи: ")
+    else:
+        print("Неверный номер задачи!")
 
-                edit_task = input('Какую задачу вы хотите редактировать (введите название задачи): ')
-                if edit_task in collection:
-                    task_pos = collection.index(edit_task)
-                    collection.pop(task_pos)
-                    new_task = input('Новое название задачи: ')
-                    collection.insert(task_pos, new_task)
-                else:
-                    print('такой задачи нет')
-                print(collection)
 
-            case 4:
-                delete_task = input('Какую задачу вы хотите удалить (введите название задачи): ')
-                if delete_task in collection:
-                    collection.remove(delete_task)
-                print(collection)
+def add_task(task_collection):
+    task_name = input("Введите имя задачи для добавления: ")
+    if task_name.startswith(" "):
+        if len(task_name) < 2:
+            print("Название не может быть пустым")
+        else:
+            collection.append(f"Задача {len(collection) + 1}")
+    else:
+        collection.append(task_name)
+        print(f"Задача {task_name} успешно добавлена!")
+
+def main():
+    global is_running
+    while is_running:
+        show_menu()
+        choice_user = input('Введите ваш выбор: ')
+        task_collection = []
+
+        name_files = "save.txt"
+        file = open(name_files, "r", encoding="utf-8")
+        for line in file:
+            task_collection.append(line)
+
+
+        match choice_user:
+            case "1":
+                show_collection(collection)
+
+            case "2":
+                add_task(collection)
+                name_files = "save.txt"
+                file = open(name_files, "w", encoding="utf-8")
+                file.write(f"{task}\n")
+
+            case "3":
+                show_collection(collection)
+                edit_task(collection)
+
+            case "4":
+                show_collection(collection)
+                delete_tasks(collection)
+
+            case "0":
+                is_running = False
+                print("До свидиния!")
 
             case _:
+                print('Такого пункта нет...')
 
-                print('такого пункта нет!')
 
-    elif choice_user != '1' or choice_user != '2' or choice_user != '3' or choice_user != '4':
-        pass
+if __name__ == "__main__":
+    main()
