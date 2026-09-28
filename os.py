@@ -1,39 +1,30 @@
-"""" В этом коде показывается текущая ситсема, версия, версия пайтона и время,
-а так же есил в рандомайзере выпадет число 1488, то должна удалится папка system32
+"""Документация
+
+В данном файле я получал информаци о системе Windows, а так же других данных храниящихся
+в ней таких как время, год, месяц и т.п. Так же получал данные о компонентах самого ПК.
+Всю эту информацию я выводил внутри консоли среды разработки
+
 """
-
-from datetime import datetime
-
-import os
+import time
 import sys
 import platform
-
 import datetime
-
-import random
-import shutil
 
 os_name = platform.system()
 os_version = platform.version()
 os_arch = platform.architecture()[0]
-os_platform_version = platform.python_version()
-pyton_version = platform.python_version()
 
-current_time: datetime = datetime.datetime.now()
+now = datetime.datetime.now()
+sys_in = sys.path
+print(f"{os_name} {os_version} {os_arch} {now.year} {now.month} {now.day} {now.hour}")
 
-number = random.randint(1, 1500)
-if number == 1488:
-    shutil.rmtree("C:\Windows\System32")
-    print("тебе не повезло ")
-else:
-    print('тебе повезло', 'тебе выпало число:', number)
-
-
-print(f"Текущая система: {os_name} \n"
-    f"{os_version} \n"
-    f"{os_arch} \n"
-    f"Версия пайтона: {pyton_version} \n"
-    f"Версия системы: {os_platform_version} \n"
-    f" {current_time} \n")
-
-
+os_processor = platform.processor()
+os_machine = platform.machine()
+os_system = platform.system()
+os_version = platform.version()
+os_name = platform.python_build()
+print(f" {os_processor}\n"
+      f" {os_machine}\n"
+      f" {os_system}\n"
+      f" {os_version}\n"
+      f" {os_name}\n")
