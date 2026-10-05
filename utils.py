@@ -1,10 +1,13 @@
-##======================================================
-##              Модуль содержащий утилиты
-##======================================================
-import os
-import sys
-from config import NAME_FILE_SAVES
+"""
+                                 === Функции проверки подтверждения ===
 
+                                    === Версия приложения: 0.0.9 ===
+"""
+import sys
+import os
+from tkinter.messagebox import RETRY
+
+### Проверка подтверждения
 def check_confirm(select_task, task_list):
     if select_task.isdigit():
         if 0 < int(select_task) <= len(task_list):
@@ -16,7 +19,7 @@ def check_confirm(select_task, task_list):
         print("Введите именно номер задачи!")
         return False
 
-def get_base_dir():
+def get_base_din():
     if getattr(sys, 'frozen', False):
         return os.path.dirname(sys.executable)
     else:
@@ -24,5 +27,5 @@ def get_base_dir():
 
 def insure_saves_file(name_file):
     if not os.path.exists(name_file):
-        with open(name_file, "w", encoding="utf-8") as f:
-            f.write("")
+        with open(name_file, 'w', encoding="utf-8"):
+            pass

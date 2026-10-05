@@ -1,4 +1,9 @@
-import os
-from utils import get_base_dir
+"""
+                                          === Моудль для хранения конфигураций ===
 
-NAME_FILE_SAVES = os.path.join(get_base_dir(),"saves.txt")
+                                            === Версия приложения: 0.0.9 ===
+"""
+import os
+from utils import get_base_din
+
+NAME_FILE_SAVES = os.path.join(get_base_din(), "saves.txt")

@@ -5,7 +5,6 @@
 Всю эту информацию я выводил внутри консоли среды разработки
 
 """
-import time
 import sys
 import platform
 import datetime
