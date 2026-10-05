@@ -1,111 +1,53 @@
-"""Основной файл приложения
-
-    версия 0.0.7
-
-    === Описание ===
-        Приложение может сохранять задачи, выдает список задач, и может удалять и редактировать задачи
-
 """
-from random import choice
-import processes
-import os
+                                    === Основной файл приложения ===
 
-collection = ['task1', 'task2']  # list of tasks
-is_running = True
+## V 0.0.1
 
+    создать проект на git hub
+    создать файл основного приложения
+    создать основной цикл
 
-def show_collection(task_collection):
-    print("=" * 45)
-    for i, j in enumerate(collection):
-        print(i + 1, j)
-    print("=" * 45)
+## V 0.0.2
 
+    реализовать место хранения задач
+    создать функцию показа заметок
+    создать функцию добавления заметок
 
-def show_menu():
-    print("1 - Показать задачи \n"
-          "2 - Добавить задачу \n"
-          "3 - Редактировать задачи \n"
-          "4 - Удаление задачи \n"
-          "5 - Выход")
+## V 0.0.3
 
+    реализовать сохранение задач
+    реализовать вывод списка задач
+    реализовать редактирование и удаление задач
 
-def check_confirm(select_task, task_list):
-    if select_task.isdigit():
-        if int(select_task) > 0 and int(select_task) <= len(task_list):
-            return True
-        else:
-            print(f"Задачи с номером {select_task} нет в списке!")
-            return False
-    else:
-        print(f"Введите именно номер задачи!")
-        return False
+## V 0.0.4
 
-def delete_tasks(task_collection):
-    delete_task = input("Введите номер задачи: ")
-    if check_confirm(delete_task, task_collection) == 1:
-        task_collection.pop(int(delete_task) - 1)
-        print(f"Задача {delete_task} удалена!")
-    else:
-        print("Неверный номер задачи!")
+    добавлены проверки и подтверждения
 
+## V 0.0.5
 
-def edit_task(task_collection):
-    edit_task = input("Введите номер задачи: ")
-    if check_confirm(edit_task, task_collection) == 1:
-        task_collection[int(edit_task) - 1] = input("Новое имя задачи: ")
-    else:
-        print("Неверный номер задачи!")
+    созданы методы сохранения и загрузки - файлы сохранение
 
+## V 0.0.6
 
-def add_task(task_collection):
-    task_name = input("Введите имя задачи для добавления: ")
-    if task_name.startswith(" "):
-        if len(task_name) < 2:
-            print("Название не может быть пустым")
-        else:
-            collection.append(f"Задача {len(collection) + 1}")
-    else:
-        collection.append(task_name)
-        print(f"Задача {task_name} успешно добавлена!")
+    созданы методы для удаления, редактирования и создания задач - логика вынесена из цикла
 
-def main():
-    global is_running
-    while is_running:
-        show_menu()
-        choice_user = input('Введите ваш выбор: ')
-        task_collection = []
+## V 0.0.7
 
-        name_files = "save.txt"
-        file = open(name_files, "r", encoding="utf-8")
-        for line in file:
-            task_collection.append(line)
+    основной цикл помещен в отдельный метод - def main
 
+## V 0.0.8
 
-        match choice_user:
-            case "1":
-                show_collection(collection)
+    реализован функционал добавления контента задачи - имя + содержания
 
-            case "2":
-                add_task(collection)
-                name_files = "save.txt"
-                file = open(name_files, "w", encoding="utf-8")
-                file.write(f"{task}\n")
+## V 0.0.9
 
-            case "3":
-                show_collection(collection)
-                edit_task(collection)
+    реализован переход на модульную систему
 
-            case "4":
-                show_collection(collection)
-                delete_tasks(collection)
+## v 0.1.0
 
-            case "0":
-                is_running = False
-                print("До свидиния!")
-
-            case _:
-                print('Такого пункта нет...')
-
+    Подготовка к сборке приложения
+"""
+import app
 
 if __name__ == "__main__":
-    main()
+    app.app()
