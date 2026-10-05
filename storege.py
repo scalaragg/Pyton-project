@@ -1,11 +1,11 @@
 ##===========================================================
 ##      Модуль который загружает и сохраняет задачи
 ##===========================================================
-def save_tasks(task_collection, name_file):
+def load_tasks(task_list, name_file):
     with open(name_file, "w", encoding="utf-8") as file:
-        file.writelines(task_collection)
+        file.writelines(task_list)
 
-def load_tasks(name_file):
+def save_tasks(name_file):
     try:
         with open(name_file, "r", encoding="utf-8") as file:
             return file.readlines()
